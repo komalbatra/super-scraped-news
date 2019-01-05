@@ -1,24 +1,30 @@
 // Grab the articles as a json
 
 $.getJSON("/articles", function(data) {
-  // For each one
   for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-    var newRow = $('<tr>');
-    // newRow.attr('data-id=' + data[i]._id);
-    var cell1 = $('<td>').text(data[i].title);
-    var cell2 = $("<a href='www.movieweb.com" + data[i].link + "' >").text('link to article');
-    var cell3 = $("<p data-id='" + data[i]._id + "'>").text('Notes').addClass('notesButton btn btn-danger btn-sm');
+    // Display each article as a card
     
+    var newCard = $("<div>").addClass("card");
+    var newCardContain = $("<div>").addClass("card-body");
+    var newCardTitle = $("<h5>").addClass("card-title").text(data[i].title);
+    var newCardSummary = $("<p>").addClass("card-text").text(data[i].summary);
+    var newCardLink = $("<a href='" + data[i].link + "'>").text('Article Link').addClass('btn btn-danger btn-sm');
+
     
-    newRow.append(cell1);
-    newRow.append(cell2);
-    newRow.append(cell3);
+    // var newRow = $('<tr>');
+    // // newRow.attr('data-id=' + data[i]._id);
+    // var cell1 = $('<td>').text(data[i].title);
+    // var cell2 = $("<a href='www.movieweb.com" + data[i].link + "' >").text('link to article');
+    // var cell3 = $("<p data-id='" + data[i]._id + "'>").text('Notes').addClass('notesButton btn btn-danger btn-sm');
+        
+    newCard.append(newCardContain);
+    newCard.append(newCardTitle);
+    newCard.append(newCardSummary);
+    newCard.append(newCardLink);
     
     
 
-    $('#articles').append(newRow);
+    $('#articles').append(newCard);
     
   }
 });
