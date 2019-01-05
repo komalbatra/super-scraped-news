@@ -8,13 +8,19 @@
         <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
         {{!-- favicon --}}
         <link rel="icon" type="favicon.ico" href="assets/images/icon.png"/>
+        <!-- Link to Typography -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:900" rel="stylesheet">
         {{!-- JQuery Link --}}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         {{!-- My JS file --}}
         {{!-- <script src="assets/js/app.js"></script> --}}
     </head>
     <body>
-        <h1>Test</h1>
+        <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">SUPER SCRAPED NEWS!</h1>
+            <p class="lead">All your superhero stories available here</p>               
+        </div>
         {{{ body}}}
     </body>
 </html>

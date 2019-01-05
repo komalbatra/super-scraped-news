@@ -2,7 +2,9 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-// Scraping tools
+// Our scraping tools
+// Axios is a promised-based http library, similar to jQuery's Ajax method
+// It works on the client and on the server
 var axios = require("axios");
 var cheerio = require("cheerio");
 
@@ -24,29 +26,20 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Set Handlebars.
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/supernewsdb", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/supernews", { useNewUrlParser: true });
 
 // Routes
-// Default Route
-app.get("/", (req, res) => res.render("index"));
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.echojs.com/").then(function(response) {
+  axios.get("https://movieweb.com/superheroes/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("article h3").each(function(i, element) {
       // Save an empty result object
       var result = {};
 

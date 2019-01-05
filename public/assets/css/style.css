@@ -5,10 +5,10 @@ body{
 }
 
 .jumbotron{
-    background: url("../images/supertrain5.jpg");
+    background: url("../images/supertrain.jpg");
     background-size: cover;
     font-family: 'Raleway', sans-serif;
-    color: #fff; 
+    color:maroon; 
 }
 
 .card-title{
