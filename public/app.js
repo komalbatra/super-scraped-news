@@ -8,19 +8,16 @@ $.getJSON("/articles", function(data) {
     var newCardContain = $("<div>").addClass("card-body");
     var newCardTitle = $("<h5>").addClass("card-title").text(data[i].title);
     var newCardSummary = $("<p>").addClass("card-text").text(data[i].summary);
-    var newCardLink = $("<a href='" + data[i].link + "'>").text('Article Link').addClass('btn btn-danger btn-sm');
+    var newCardLink = $("<a href='movieweb.com" + data[i].link + "'>").text('Article Link').addClass('btn btn-danger btn-sm');
+    var newCardNote = $("<button type='button' data-toggle='modal' data-target='#exampleModal' data-id='" + data[i]._id + "'>").text('Notes').addClass('enterNote btn btn-danger btn-sm');
 
-    
-    // var newRow = $('<tr>');
-    // // newRow.attr('data-id=' + data[i]._id);
-    // var cell1 = $('<td>').text(data[i].title);
-    // var cell2 = $("<a href='www.movieweb.com" + data[i].link + "' >").text('link to article');
-    // var cell3 = $("<p data-id='" + data[i]._id + "'>").text('Notes').addClass('notesButton btn btn-danger btn-sm');
+
         
     newCard.append(newCardContain);
     newCard.append(newCardTitle);
     newCard.append(newCardSummary);
     newCard.append(newCardLink);
+    newCard.append(newCardNote);
     
     
 
@@ -28,15 +25,12 @@ $.getJSON("/articles", function(data) {
     
   }
 });
-
-
-// Whenever someone clicks a p tag
-$(document).on("click", ".notesButton", function() {
-  // Empty the notes from the note section
+    
+// Whenever someone clicks on notesButton
+$(document).on("click", ".enterNote", function() {
   $("#notes").empty();
-  // Save the id from the p tag
- 
   var thisId = $(this).attr("data-id");
+  
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -47,26 +41,37 @@ $(document).on("click", ".notesButton", function() {
     .then(function(data) {
       console.log(data);
       
-      // The title of the article
-      $("#notes").append("<h6>" + data.title + "</h6>");
+      $(".modal-header").append("<h5 class='modal-header'>" + data.title + "</h5>");
       // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
+      $("#note-title").append("<input id='titleinput' name='title' >");
       // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#note-body").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote' >Save Note</button>");
+      $(".modal-footer").append("<button data-id='" + data._id + "' id='savenote' >Save Note</button>");
+      
+      
+})
+      
+      // // The title of the article
+      // $("#notes").append("<h6>" + data.title + "</h6>");
+      // // An input to enter a new title
+      // $("#notes").append("<input id='titleinput' name='title' >");
+      // // A textarea to add a new note body
+      // $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      // // A button to submit a new note, with the id of the article saved to it
+      // $("#notes").append("<button data-id='" + data._id + "' id='savenote' >Save Note</button>");
 
-      // If there's a note in the article
-      for (var j = 0; j < data.length; j++) {
+      // // If there's a note in the article
+      // for (var j = 0; j < data.length; j++) {
       
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title[j]);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body[j]);
+      //   // Place the title of the note in the title input
+      //   $("#titleinput").val(data.note.title[j]);
+      //   // Place the body of the note in the body textarea
+      //   $("#bodyinput").val(data.note.body[j]);
       
-      }
-    });
-});
+      // }
+    })
+
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
