@@ -90,6 +90,9 @@ app.get("/articles/:id", function(req, res) {
     .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
+      console.log ("From Server JS File");
+      console.log(dbArticle);
+      console.log("End of server.js file");
       res.json(dbArticle);
     })
     .catch(function(err) {
@@ -103,7 +106,7 @@ app.post("/articles/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
   db.Note.create(req.body)
     .then(function(dbNote) {
-      db.Article.findOneAndUpdate({ _id: req.params.id }, {$push: { note: dbNote._id }}, { new: true })
+      return db.Article.findOneAndUpdate({ _id: req.params.id },{$push: { note: dbNote._id}}, { new: true })
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
