@@ -23,9 +23,12 @@ $.getJSON("/articles", function(data) {
   }
 });
     
-// Whenever someone clicks on notesButton
+// Whenever someone clicks on Button "Add a Note"
 $(document).on("click", ".enterNote", function() {
-  
+  $(".modal-header").empty();
+  $("#note-title").empty();
+  $("#note-body").empty();
+  $("#save-note-footer").empty();
   var thisId = $(this).attr("data-id");
   
   // make an ajax call for the Article
@@ -39,17 +42,19 @@ $(document).on("click", ".enterNote", function() {
       
       $(".modal-header").append("<h5 class='modal-title'>" + data.title + "</h5>");
       // An input to enter a new title
-      $("#note-title").append("<input id='titleinput' name='title' >");
+      $("#note-title").append("<strong>Title</strong> <input id='titleinput' name='title'>");
       // A textarea to add a new note body
-      $("#note-body").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#note-body").append("<strong>Note </strong><textarea id='bodyinput' name='body'></textarea>"+ "<small id='emailHelp' class='form-text text-muted'>"+"Write a super note and save it forever!."+"</small>");
       // A button to submit a new note, with the id of the article saved to it
-      $(".modal-footer").append("<button data-id='" + data._id + "' id='savenote' class='saveClass btn btn-danger'>Save Note</button>");
+      $("#save-note-footer").append("<button data-id='" + data._id + "' id='savenote' class='saveClass btn btn-danger'>Save Note</button>");
 })
 })
 
-// When you click the savenote button
+// When you click the "Save Note" button
 $(document).on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button
+  
+  // $(".modal-footer").empty();
   var thisId = $(this).attr("data-id");
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
@@ -62,45 +67,37 @@ $(document).on("click", "#savenote", function() {
       body: $("#bodyinput").val()
     }
   })
-    // With that done
     .then(function(data) {
-      // Log the response
       console.log(data);
-      // Empty the notes section and display sucess message
-      $(".modal-body").append("<h2>" + "SUCCESS!" + "</h2>" + "<br>" + "<h5>Note added!" +"</h5>");
-      $("#note-title").empty();
-      $("#note-body").empty();
-      $(".modal-footer").empty();     
+      $('#exampleModal').modal('hide');
+      $('#success-modal').modal('show'); 
     });
-
-  // // Also, remove the values entered in the input and textarea for note entry
-  // $("#titleinput").val("");
-  // $("#bodyinput").val("");
 });
 
 // to Display notes
 $(document).on("click", ".seeNote", function() {
+  $(".modal-header").empty();
+  $("#viewmodal-header").empty();
+  $("#notes-view").empty();
   // Grab the id associated with the article from the submit button
-   $(".modal-header").empty();
   var thisId = $(this).attr("data-id");
-
-  // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "GET",
     url: "/articles/" + thisId
-
   })
   // With that done, add the note information to the page
   .then(function(data) {
     console.log(data);
-    $(".modal-header").empty();
-    $(".modal-header").append("<h5 class='modal-title'>" + data.title + "</h5>");
-    $(".modal-body").empty();
+    $("#viewmodal-header").append("<h5 class='modal-title'>" + data.title + "</h5>");
+    
+    if (data.note.length === 0){
+      $("#notes-view").append("<h2>" + "No Notes Found :(" + "</h2>" + "<br>" + "<h5>Be the first to add a note!" +"</h5>");
+    }
+    else{
     for (var i = 0; i <data.note.length; i++) {
-    console.log("length of notes" + data.note[i].title);
-      // Display each NOTE
-      $(".modal-body").append("<h5>" + data.note[i].title + "<br />" + data.note[i].body+"</p>");
-
-      }
-})
+    // Display each NOTE
+      $("#notes-view").append("<h5>" + data.note[i].title + "<br />" + data.note[i].body+"</p>");
+    }
+    }
+  })
 });

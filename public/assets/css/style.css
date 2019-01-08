@@ -11,9 +11,14 @@ body{
 
 .display-4{
     background-color: hsl(215,14%,43%);
-    }
+}
 
 .card-title{
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
+    color:rgb(65,71,84);
+}
+
+.modal-body{
+    color: maroon;
 }

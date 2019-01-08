@@ -35,14 +35,15 @@
               <div class="modal-body">
                 <form>
                   <div class="form-group" id="note-title">
-                    <label for="titleinput" class="col-form-label">Title:</label>
+                    <label for="titleinput" class="col-form-label"></label>
                   </div>
                   <div class="form-group" id="note-body">
-                    <label for="bodyinput" class="col-form-label">Note:</label>
+                    <label for="bodyinput" class="col-form-label"></label>
                   </div>
                 </form>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer" id = "save-note-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
           </div>
         </div>
@@ -52,7 +53,7 @@
       <div class="modal fade" id="see-notes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id = "viewmodal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -66,6 +67,32 @@
         </div>
       </div>
     </div>
+
+     <!-- Modal for letting user know that new record added sucessfully -->
+     <div class="modal modal-3" id="success-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Super!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <h4>New Note added SUPERbly!</h4>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+          <span class="text-muted">Copyright Komal Batra</span>
+        </div>
+    </footer>
 
   <!-- SCRIPT LINKS -->
   <!-- Bootstrap jQuery Link -->

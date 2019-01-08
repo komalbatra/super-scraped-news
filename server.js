@@ -36,11 +36,8 @@ app.get("/scrape", function(req, res) {
   // Grab the body of the html with axios
   axios.get("https://movieweb.com/superheroes/").then(function(response) {
     var $ = cheerio.load(response.data);
-
     $("article").each(function(i, element) {
-     
       var result = {};
-
       result.title = $(this)
         .find("h3")
         .children("a")
@@ -62,22 +59,16 @@ app.get("/scrape", function(req, res) {
           console.log(err);
         });
     });
-
-    // Send a message to the client
-    res.send("Scrape Complete");
   });
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  
   db.Article.find({})
     .then(function(dbArticle) {
-      
       res.json(dbArticle);
     })
     .catch(function(err) {
-      
       res.json(err);
     });
 });
@@ -90,9 +81,6 @@ app.get("/articles/:id", function(req, res) {
     .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
-      console.log ("From Server JS File");
-      console.log(dbArticle);
-      console.log("End of server.js file");
       res.json(dbArticle);
     })
     .catch(function(err) {
@@ -130,8 +118,6 @@ app.delete("/articles/:id", function(req, res) {
 });
 
 // Start the server
-// app.listen(PORT, function() {
-//   console.log("App running on port " + PORT + "!");
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || PORT, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
