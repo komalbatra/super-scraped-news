@@ -16,7 +16,7 @@ Completed on: Jan 8th 2019
 - - - 
 
 ## Description of Application
-Super Scraped News is a full-stack application that scrapes headlines, summary, and links, from the Superhero news section of the Movieweb website. The use can view all articles, add notes to each article and then view those notes wherever they choose to. 
+Super Scraped News is a full-stack application that scrapes headlines, summary, and links, from the Superhero news section of the Movieweb website. The user can view all articles, add notes to each article and then view those notes wherever they choose to. 
 
 Home Page
 
@@ -34,6 +34,7 @@ Home Page
     - Modal, Card, Button, Form, Table, JumboTron
 - Javascript
 - JQuery
+- JSON
 - Typography
 - Mongoose/MongoDB
 - Morgan Logger
